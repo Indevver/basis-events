@@ -1,0 +1,10 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+@media (min-width: 782px) {
+  .column-featured_image {
+    width: 70px;
+  }
+}

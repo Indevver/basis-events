@@ -1,0 +1,7 @@
+{
+    "require": {
+        "league/plates": "^3.3",
+        "johnbillion/extended-cpts": "^4.2",
+        "stoutlogic/acf-builder": "^1.8"
+    }
+}
