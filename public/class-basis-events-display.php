@@ -42,6 +42,14 @@ class Basis_Events_Display {
 		return $button ? "<a class=\"btn btn-primary\" href=\"{$button['url']}\" target='{$button['target']}'>{$button['title']}</a>" : '';
 	}
 
+
+    public function isDateVisible($post_id = null)
+    {
+        $post_id = $post_id ?? get_the_ID();
+
+        return !get_field('hide_startend_time', $post_id );
+    }
+
 	public function date($post_id = null) {
 		$post_id = $post_id ?? get_the_ID();
 
@@ -95,6 +103,22 @@ class Basis_Events_Display {
 		return $start_date->format($this->date_format);
 	}
 
+    public function startTime($post_id = null) {
+        $post_id = $post_id ?? get_the_ID();
+
+        $start_date = get_field('start_date', $post_id) ?  new \DateTime(get_field('start_date', $post_id, false)): false;
+
+        return $start_date->format('g:ia');
+    }
+
+    public function endTime($post_id = null) {
+        $post_id = $post_id ?? get_the_ID();
+
+        $start_date = get_field('end_date', $post_id) ?  new \DateTime(get_field('end_date', $post_id, false)): false;
+
+        return $start_date->format($this->date_format);
+    }
+
 	public function types($post_id = null) {
 		$post_id = $post_id ?? get_the_ID();
 
@@ -115,15 +139,15 @@ class Basis_Events_Display {
 	 *
 	 * @return WP_Query
 	 */
-	public function featuredEventQuery()
+	public function featuredEventQuery($take = -1)
 	{
 		return new WP_Query([
 			'post_type' => ['event'],
 			'post__in' => $this->featured_events,
 			'orderby' => 'post__in',
+            'posts_per_page' => $take,
 		]);
 	}
-
 
 	/**
 	 * eventQuery
