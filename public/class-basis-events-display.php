@@ -100,6 +100,11 @@ class Basis_Events_Display {
 
 		$start_date = get_field('start_date', $post_id) ?  new \DateTime(get_field('start_date', $post_id, false)): false;
 
+		if(!$start_date)
+        {
+            return;
+        }
+
 		return $start_date->format($this->date_format);
 	}
 
@@ -108,15 +113,25 @@ class Basis_Events_Display {
 
         $start_date = get_field('start_date', $post_id) ?  new \DateTime(get_field('start_date', $post_id, false)): false;
 
+        if(!$start_date)
+        {
+            return;
+        }
+
         return $start_date->format('g:ia');
     }
 
     public function endTime($post_id = null) {
         $post_id = $post_id ?? get_the_ID();
 
-        $start_date = get_field('end_date', $post_id) ?  new \DateTime(get_field('end_date', $post_id, false)): false;
+        $end_date = get_field('end_date', $post_id) ?  new \DateTime(get_field('end_date', $post_id, false)): false;
 
-        return $start_date->format($this->date_format);
+        if(!$end_date)
+        {
+            return;
+        }
+
+        return $end_date->format($this->date_format);
     }
 
 	public function types($post_id = null) {
