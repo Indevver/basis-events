@@ -169,7 +169,7 @@ class Basis_Events_Display {
 	 *
 	 * @return WP_Query
 	 */
-	public function eventQuery()
+	public function eventQuery($take = -1)
 	{
 		return new WP_Query([
 			'post_type' => ['event'],
@@ -178,13 +178,14 @@ class Basis_Events_Display {
 			'meta_value'   => date( 'Y-m-d H:i:s' ),
 			'meta_type'			=> 'DATETIME',
 			'meta_compare' => '>',
-			'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+            'posts_per_page' => $take,
+//			'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
 			'orderby' => 'meta_value_date',
 			'order' => 'ASC',
 		]);
 	}
 
-	public function previousEventsQuery() {
+	public function previousEventsQuery($take = -1) {
 		return new WP_Query([
 			'post_type' => ['event'],
 			'post__not_in' => get_option('featured_event'),
@@ -194,7 +195,8 @@ class Basis_Events_Display {
 			'meta_compare' => '<',
 			'orderby' => 'meta_value_date',
 			'order' => 'DESC',
-			'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+            'posts_per_page' => $take,
+//			'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
 		]);
 	}
 }
